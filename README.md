@@ -82,10 +82,11 @@ classDiagram
 ## Installation
 
 Clone the project
-composer install
+`composer install`
 
-ça aussi ?
-composer dump-autoload -o
+Add `final` to classes ?
+
+add `declare(strict_types=1);` ?
 
 ## Usage
 
