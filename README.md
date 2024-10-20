@@ -8,6 +8,10 @@ L'application utilise des design patterns tels que **State** et **Decorator** po
 
 En effet nous pouvons considérer cette machine à café comme un automate de type [FSM](https://en.wikipedia.org/wiki/Finite-state_machine).
 
+> La logique de la machine est pensée pour convenir à un usage moderne d'une machine à café (pouvoir annuler et récupérer son crédit à tout moment, rendre les étapes de sélection de sucre/lait optionnelles...).
+> Cela explique en partie la relative complexité du code.
+> Un système moins flexible et pas-à-pas (bloquant) aurait certes été plus simple/rapide à mettre en place mais j'ai privilégié l'évolutivité, tout en essayant de proposer un code simple à maintenir selon les principes DRY et SOLID.
+
 ## Diagram
 
 ```mermaid
@@ -84,9 +88,22 @@ classDiagram
 Clone the project
 `composer install`
 
+TODO
+
+Check // TODO comments
+
+DrinkEnum::TEA->name; // 'TEA'
+DrinkEnum::TEA->value; // 2
+DrinkEnum::TEA->label(); // 'Thé'
+DrinkEnum::from(2)->label(); // 'Thé'
+
 Add `final` to classes ?
 
 add `declare(strict_types=1);` ?
+
+créer des dossiers pour les __State.php, etc ___Decorator.php
+
+add logs instead of echos?
 
 ## Usage
 

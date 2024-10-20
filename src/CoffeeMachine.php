@@ -10,6 +10,7 @@ use App\DrinkChoiceState;
 use App\OptionsChoiceState;
 use App\PaymentState;
 use App\DispenseState;
+use App\DrinkEnum;
 
 class CoffeeMachine
 {
@@ -23,30 +24,31 @@ class CoffeeMachine
     private function setState(CoffeeMachineState $state)
     {
         $this->state = $state;
+        echo "State changed";
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectDrink()
+    public function selectDrink(DrinkEnum $drink)
     {
-        $this->setState($this->state->selectDrink());
+        $this->setState($this->state->selectDrink($drink));
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectSugar()
+    public function selectSugar(int $sugarLevel)
     {
-        $this->setState($this->state->selectSugar());
+        $this->setState($this->state->selectSugar($sugarLevel));
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectMilk()
+    public function selectMilk(int $milkLevel)
     {
-        $this->setState($this->state->selectMilk());
+        $this->setState($this->state->selectMilk($milkLevel));
     }
 
     /**
@@ -60,25 +62,25 @@ class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function insertCoin()
+    public function insertCoin(int $coins)
     {
-        $this->setState($this->state->insertCoin());
+        $this->setState($this->state->insertCoin($coins));
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function start()
+    public function finish()
     {
-        $this->setState($this->state->start());
+        $this->setState($this->state->finish());
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function cancel()
+    public function cancel(): DrinkChoiceState
     {
-        $this->setState($this->state->cancel());
+        return $this->state->cancel();
     }
 
     /* Helper functions */

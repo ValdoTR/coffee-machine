@@ -1,22 +1,40 @@
 <?php
 
-// Step 7
-
 namespace App;
 
 use App\AbstractCoffeeMachineState;
 use App\DrinkChoiceState;
+use App\Drink;
 
 class DispenseState extends AbstractCoffeeMachineState
 {
-    public function start(): DrinkChoiceState
+    private Drink $drink;
+
+    public function __construct(Drink $drink)
     {
-        return new DrinkChoiceState;
+        $this->drink = $drink;
     }
 
-    public function cancel(): DrinkChoiceState
+    public function finish(): DrinkChoiceState
     {
-        // give back current credit to the user
-        return new DrinkChoiceState;
+        // Simulate dispensing the drink
+        echo "Votre " . $this->drink->getName()->label() . " est en cours de préparation...\n";
+        
+        for ($i = 0; $i < 3; $i++) {
+            sleep(1); // Wait for 1 second
+            echo ".\n"; // Print a drop
+        }
+
+        echo "Bonne dégustation !\n";
+
+        // Give back current credit to the user
+        $change = $this->returnChange();
+        if ($change > 0) {
+            echo "Vous récupérez $change pièces.\n";
+        }
+        
+        // Transition back to DrinkChoice State
+        // for the next transaction
+        return new DrinkChoiceState();
     }
 }

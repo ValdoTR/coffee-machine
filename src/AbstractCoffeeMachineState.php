@@ -6,31 +6,34 @@ namespace App;
 
 use App\CoffeeMachineState;
 use App\IllegalStateTransitionException;
+use App\DrinkEnum;
 
 abstract class AbstractCoffeeMachineState implements CoffeeMachineState
 {
+    use CreditHandlerTrait, CancellableTrait;
+
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectDrink()
+    public function selectDrink(DrinkEnum $drink)
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectSugar()
+    public function selectSugar(int $sugarLevel)
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectMilk()
+    public function selectMilk(int $milkLevel)
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
@@ -38,23 +41,23 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
      */
     public function dispenseDrink()
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function insertCoin()
+    public function insertCoin(int $coins)
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function start()
+    public function finish()
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 
     /**
@@ -62,6 +65,6 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
      */
     public function cancel()
     {
-        throw new IllegalStateTransitionException;
+        throw new IllegalStateTransitionException();
     }
 }
