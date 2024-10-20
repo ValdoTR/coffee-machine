@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\Trait;
 
-trait CreditHandlerTrait
+trait CreditHandableTrait
 {
-    // TODO: verify if we need to use the credit of contexte or not
     protected int $credit = 0;
 
     public function getCredit(): int

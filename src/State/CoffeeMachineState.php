@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\State;
 
-use App\DrinkEnum;
+use App\Enum\DrinkEnum;
 
 interface CoffeeMachineState
 {

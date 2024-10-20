@@ -2,11 +2,11 @@
 
 namespace App\Tests;
 
-use PHPUnit\Framework\TestCase;
 use App\CoffeeMachine;
-use App\DrinkChoiceState;
+use App\State\DrinkChoiceState;
+use PHPUnit\Framework\TestCase;
 
-final class DrinkChoiceTest extends TestCase
+final class CoffeeMachineTest extends TestCase
 {
     private CoffeeMachine $coffeeMachine;
 

@@ -12,7 +12,9 @@ En effet nous pouvons considérer cette machine à café comme un automate de ty
 > Cela explique en partie la relative complexité du code.
 > Un système moins flexible et pas-à-pas (bloquant) aurait certes été plus simple/rapide à mettre en place mais j'ai privilégié l'évolutivité, tout en essayant de proposer un code simple à maintenir selon les principes DRY et SOLID.
 
-## Diagram
+## State diagram
+
+Here is an UDM representing the State flow of the machine:
 
 ```mermaid
 classDiagram
@@ -24,7 +26,7 @@ classDiagram
         selectMilk()
         dispenseDrink()
         insertCoin()
-        start()
+        finish()
         cancel()
     }
 
@@ -35,7 +37,7 @@ classDiagram
         selectMilk()
         dispenseDrink()
         insertCoin()
-        start()
+        finish()
         cancel()
     }
 
@@ -61,8 +63,7 @@ classDiagram
     }
 
     class DispenseState {
-        start() DrinkChoiceState
-        cancel() DrinkChoiceState
+        finish() DrinkChoiceState
     }
 
     CoffeeMachine --> CoffeeMachineState
@@ -75,33 +76,62 @@ classDiagram
     DrinkChoiceState --> OptionsChoiceState : selectDrink()
     OptionsChoiceState --> PaymentState : dispenseDrink()
     PaymentState --> DispenseState : insertCoin()
-    DispenseState --> DrinkChoiceState : start()
+    DispenseState --> DrinkChoiceState : finish()
 
     DrinkChoiceState --> DrinkChoiceState : cancel()
     OptionsChoiceState --> DrinkChoiceState : cancel()
     PaymentState --> DrinkChoiceState : cancel()
-    DispenseState --> DrinkChoiceState : cancel()
 ```
+
+## Structure
+
+The source code follows the following structure:
+
+```shell
+├── src
+│   ├── Drink
+│   │   ├── Chocolate.php
+│   │   ├── Coffee.php
+│   │   ├── DrinkDecorator.php
+│   │   ├── Drink.php
+│   │   ├── MilkDecorator.php
+│   │   ├── SugarDecorator.php
+│   │   └── Tea.php
+│   ├── Enum
+│   │   └── DrinkEnum.php
+│   ├── State
+│   │   ├── AbstractCoffeeMachineState.php
+│   │   ├── CoffeeMachineState.php
+│   │   ├── DispenseState.php
+│   │   ├── DrinkChoiceState.php
+│   │   ├── IllegalStateTransitionException.php
+│   │   ├── OptionsChoiceState.php
+│   │   └── PaymentState.php
+│   ├─── Trait
+│   │   ├── CancellableTrait.php
+│   │   └── CoinHandlerTrait.php
+│   ├── CoffeeMachine.php
+```
+
+**Drink:** This folder holds all classes related to drinks, including the base `Drink` class and specific drinks (`Coffee`, `Tea`, `Chocolate`) as well as the decorators.
+
+**Enum:** Contains the `DrinkEnum`, which is specifically related to the kinds of drinks.
+
+**State:** This folder contains all classes related to the state management of the coffee machine. The states themselves and the exceptions related to state transitions are grouped here.
+
+**Trait:** Any traits, like `CancellableTrait`, can be organized here. This makes it clear that these are reusable components.
 
 ## Installation
 
 Clone the project
 `composer install`
 
-TODO
-
-Check // TODO comments
+rename $drink to $drinkObject when applicable
 
 DrinkEnum::TEA->name; // 'TEA'
 DrinkEnum::TEA->value; // 2
 DrinkEnum::TEA->label(); // 'Thé'
 DrinkEnum::from(2)->label(); // 'Thé'
-
-Add `final` to classes ?
-
-add `declare(strict_types=1);` ?
-
-créer des dossiers pour les __State.php, etc ___Decorator.php
 
 add logs instead of echos?
 

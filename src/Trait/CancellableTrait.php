@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\Trait;
 
-use App\DrinkChoiceState;
+use App\State\DrinkChoiceState;
+use App\Trait\CreditHandableTrait;
 
 trait CancellableTrait
 {
-    use CreditHandlerTrait;
+    use CreditHandableTrait;
 
     public function cancel(): DrinkChoiceState
     {

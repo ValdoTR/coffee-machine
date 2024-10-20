@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\Drink;
 
-use App\DrinkEnum;
+use App\Enum\DrinkEnum;
 
 abstract class Drink
 {

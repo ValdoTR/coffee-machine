@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\State;
 
-use App\AbstractCoffeeMachineState;
-use App\DrinkChoiceState;
-use App\Drink;
+use App\Drink\Drink;
+use App\State\AbstractCoffeeMachineState;
+use App\State\DrinkChoiceState;
 
 class DispenseState extends AbstractCoffeeMachineState
 {

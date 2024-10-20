@@ -1,14 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
-// Step 6
+namespace App\State;
 
-namespace App;
+use App\Drink\Drink;
+use App\State\AbstractCoffeeMachineState;
+use App\State\DispenseState;
 
-use App\AbstractCoffeeMachineState;
-use App\Drink;
-use App\DispenseState;
-
-class PaymentState extends AbstractCoffeeMachineState
+final class PaymentState extends AbstractCoffeeMachineState
 {
     private Drink $drink;
 

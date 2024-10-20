@@ -1,18 +1,16 @@
-<?php
-
-// Step 8
+<?php declare(strict_types=1);
 
 namespace App;
 
-use App\CoffeeMachineState;
-use App\IllegalStateTransitionException;
-use App\DrinkChoiceState;
-use App\OptionsChoiceState;
-use App\PaymentState;
-use App\DispenseState;
-use App\DrinkEnum;
+use App\Enum\DrinkEnum;
+use App\State\CoffeeMachineState;
+use App\State\IllegalStateTransitionException;
+use App\State\DrinkChoiceState;
+use App\State\OptionsChoiceState;
+use App\State\PaymentState;
+use App\State\DispenseState;
 
-class CoffeeMachine
+final class CoffeeMachine
 {
     private CoffeeMachineState $state;
 
@@ -24,7 +22,7 @@ class CoffeeMachine
     private function setState(CoffeeMachineState $state)
     {
         $this->state = $state;
-        echo "State changed";
+        error_log("-> State transition ->");
     }
 
     /**

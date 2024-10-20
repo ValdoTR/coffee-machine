@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-// Step 3
+namespace App\State;
 
-namespace App;
-
-use App\CoffeeMachineState;
-use App\IllegalStateTransitionException;
-use App\DrinkEnum;
+use App\Enum\DrinkEnum;
+use App\State\CoffeeMachineState;
+use App\State\IllegalStateTransitionException;
+use App\Trait\CreditHandableTrait;
+use App\Trait\CancellableTrait;
 
 abstract class AbstractCoffeeMachineState implements CoffeeMachineState
 {
-    use CreditHandlerTrait, CancellableTrait;
+    use CreditHandableTrait, CancellableTrait;
 
     /**
      * @throws IllegalStateTransitionException

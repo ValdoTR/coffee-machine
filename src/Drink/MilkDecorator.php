@@ -1,17 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\Drink;
 
-use App\DrinkEnum;
+use App\Drink\Drink;
+use App\Drink\DrinkDecorator;
+use App\Enum\DrinkEnum;
 
-class SugarDecorator extends DrinkDecorator
+class MilkDecorator extends DrinkDecorator
 {
-    private int $sugarLevel;
+    private int $milkLevel;
 
-    public function __construct(Drink $drink, int $sugarLevel)
+    public function __construct(Drink $drink, int $milkLevel)
     {
         parent::__construct($drink);
-        $this->sugarLevel = $sugarLevel;
+        $this->milkLevel = $milkLevel;
     }
 
     public function getName(): DrinkEnum
@@ -27,6 +29,6 @@ class SugarDecorator extends DrinkDecorator
 
     public function getMilkLevel(): int
     {
-        return $this->sugarLevel;
+        return $this->milkLevel;
     }
 }

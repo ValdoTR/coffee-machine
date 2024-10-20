@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App;
+namespace App\Drink;
 
-use App\DrinkEnum;
+use App\Drink\Drink;
+use App\Enum\DrinkEnum;
 
-class Tea extends Drink
+final class Tea extends Drink
 {
     private const PRICE = 3;
 
