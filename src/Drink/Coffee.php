@@ -7,11 +7,9 @@ use App\Enum\DrinkEnum;
 
 final class Coffee extends Drink
 {
-    private const PRICE = 2;
-
     public function __construct()
     {
-        parent::__construct(DrinkEnum::COFFEE, self::PRICE);
+        parent::__construct(DrinkEnum::COFFEE, DrinkEnum::COFFEE->price());
     }
 
     // Additional functionality can go here
