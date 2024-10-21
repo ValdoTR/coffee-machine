@@ -5,10 +5,7 @@ namespace App;
 use App\Enum\DrinkEnum;
 use App\State\CoffeeMachineState;
 use App\State\IllegalStateTransitionException;
-use App\State\DrinkChoiceState;
-use App\State\OptionsChoiceState;
-use App\State\PaymentState;
-use App\State\DispenseState;
+use App\Utility\Logger;
 
 final class CoffeeMachine
 {
@@ -19,10 +16,16 @@ final class CoffeeMachine
         $this->setState($state);
     }
 
+    public function getState(): CoffeeMachineState
+    {
+        Logger::logDebug("getState", get_class($this->state));
+        return $this->state;
+    }
+
     private function setState(CoffeeMachineState $state)
     {
         $this->state = $state;
-        error_log("-> State transition ->");
+        Logger::logDebug("setState", get_class($state));
     }
 
     /**
@@ -30,7 +33,13 @@ final class CoffeeMachine
      */
     public function selectDrink(DrinkEnum $drink)
     {
-        $this->setState($this->state->selectDrink($drink));
+        try {
+            $this->setState($this->state->selectDrink($drink));
+            Logger::logInfo("selectDrink", $drink->name);
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible de sélectionner la boisson.\n";
+        }
     }
 
     /**
@@ -38,7 +47,16 @@ final class CoffeeMachine
      */
     public function selectSugar(int $sugarLevel)
     {
-        $this->setState($this->state->selectSugar($sugarLevel));
+        try {
+            $this->setState($this->state->selectSugar($sugarLevel));
+            Logger::logInfo("selectSugar", $sugarLevel);
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible de sélectionner le sucre.\n";
+        } catch (\InvalidArgumentException $e) {
+            Logger::logError($e->getMessage());
+            echo "Veuillez choisir un niveau de sucre entre 0 et 4.\n";
+        }
     }
 
     /**
@@ -46,15 +64,30 @@ final class CoffeeMachine
      */
     public function selectMilk(int $milkLevel)
     {
-        $this->setState($this->state->selectMilk($milkLevel));
+        try {
+            $this->setState($this->state->selectMilk($milkLevel));
+            Logger::logInfo("selectMilk", $milkLevel);
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Veuillez choisir un niveau de lait entre 0 et 4.\n";
+        } catch (\InvalidArgumentException $e) {
+            Logger::logError($e->getMessage());
+            echo "Veuillez choisir un niveau de lait entre 0 et 4.\n";
+        }
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function dispenseDrink()
+    public function confirmDrink()
     {
-        $this->setState($this->state->dispenseDrink());
+        try {
+            $this->setState($this->state->confirmDrink());
+            Logger::logInfo("confirmDrink");
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible de servir la boisson.\n";
+        }
     }
 
     /**
@@ -62,7 +95,16 @@ final class CoffeeMachine
      */
     public function insertCoin(int $coins)
     {
-        $this->setState($this->state->insertCoin($coins));
+        try {
+            $this->setState($this->state->insertCoin($coins));
+            Logger::logInfo("insertCoin", $coins);
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible d'insérer la pièce.\n";
+        } catch (\InvalidArgumentException $e) {
+            Logger::logError($e->getMessage());
+            echo "Veuillez entrer un nombre de pièces entre 1 et 9.\n";
+        }
     }
 
     /**
@@ -70,48 +112,45 @@ final class CoffeeMachine
      */
     public function finish()
     {
-        $this->setState($this->state->finish());
+        try {
+            $this->setState($this->state->finish());
+            Logger::logInfo("finish");
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible de finaliser l'opération.\n";
+        }
     }
 
     /**
      * @throws IllegalStateTransitionException
      */
-    public function cancel(): DrinkChoiceState
+    public function cancel()
     {
-        return $this->state->cancel();
+        try {
+            Logger::logInfo("cancel");
+            return $this->state->cancel();
+        } catch (IllegalStateTransitionException $e) {
+            Logger::logError($e->getMessage());
+            echo "Une erreur est survenue. Impossible d'annuler l'opération.\n";
+        }
     }
 
-    /* Helper functions */
-
-    /**
-     * @return bool
-     */
-    public function isDrinkChoice()
+    // E2E test function
+    public function testMachine(DrinkEnum $drink, int $sugarLevel = 0, int $milkLevel = 0, int $coins): void 
     {
-        return $this->state instanceof DrinkChoiceState;
-    }
+        // Select a drink
+        $this->selectDrink($drink);
 
-    /**
-     * @return bool
-     */
-    public function isOptionsChoice()
-    {
-        return $this->state instanceof OptionsChoiceState;
-    }
+        // Select sugar
+        $this->selectSugar($sugarLevel);
 
-    /**
-     * @return bool
-     */
-    public function isPayment()
-    {
-        return $this->state instanceof PaymentState;
-    }
+        // Select milk
+        $this->selectMilk($milkLevel);
 
-    /**
-     * @return bool
-     */
-    public function isDispense()
-    {
-        return $this->state instanceof DispenseState;
+        // Confirm the drink
+        $this->confirmDrink();
+
+        // Insert coins
+        $this->insertCoin($coins);
     }
 }
