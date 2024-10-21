@@ -7,10 +7,9 @@ use App\Drink\DrinkDecorator;
 
 class MilkDecorator extends DrinkDecorator
 {
-    protected int $milkLevel = 0; // Default milk level
+    protected int $milkLevel = 0;
 
-    public function __construct(Drink $drinkObject, int $milkLevel)
-    {
+    public function __construct(Drink $drinkObject, int $milkLevel) {
         parent::__construct($drinkObject);
         $this->milkLevel = $milkLevel;
     }
@@ -20,8 +19,7 @@ class MilkDecorator extends DrinkDecorator
         return parent::getPrice(); // Or adjust if milk has a cost
     }
 
-    public function getMilkLevel(): int
-    {
+    public function getMilkLevel(): int {
         return $this->milkLevel;
     }
 }

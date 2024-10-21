@@ -4,14 +4,12 @@ namespace App\Drink;
 
 use App\Drink\Drink;
 use App\Drink\DrinkDecorator;
-use App\Enum\DrinkEnum;
 
 class SugarDecorator extends DrinkDecorator
 {
-    private int $sugarLevel = 0; // Default sugar level
+    protected int $sugarLevel = 0;
 
-    public function __construct(Drink $drinkObject, int $sugarLevel)
-    {
+    public function __construct(Drink $drinkObject, int $sugarLevel) {
         parent::__construct($drinkObject);
         $this->sugarLevel = $sugarLevel;
     }
@@ -21,8 +19,7 @@ class SugarDecorator extends DrinkDecorator
         return parent::getPrice(); // Or adjust if sugar has a cost
     }
 
-    public function getSugarLevel(): int
-    {
+    public function getSugarLevel(): int {
         return $this->sugarLevel;
     }
 }

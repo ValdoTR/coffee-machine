@@ -37,17 +37,6 @@ final class OptionsChoiceState extends AbstractCoffeeMachineState
 
     public function confirmDrink(): PaymentState
     {
-        // Check for sugar and milk levels
-        $sugarLevel = ($this->drinkObject instanceof SugarDecorator) ? $this->drinkObject->getSugarLevel() : 0;
-        $milkLevel = ($this->drinkObject instanceof MilkDecorator) ? $this->drinkObject->getMilkLevel() : 0;
-        
-        // Create messages based on sugar and milk levels
-        $sugarMessage = ($sugarLevel > 0) ? " avec $sugarLevel sucre" . ($sugarLevel > 1 ? 's' : '') : " sans sucre";
-        $milkMessage = ($milkLevel > 0) ? "avec $milkLevel lait" . ($milkLevel > 1 ? 's' : '') : "sans lait";
-
-        // Print out the full message
-        Logger::echoFeedback("Vous avez choisi un " . $this->drinkObject->getName()->label() . $sugarMessage . " et " . $milkMessage . ".");
-
         Logger::echoFeedback("Prix : " . $this->drinkObject->getPrice() . " pièces.");
 
         // Transition to Payment State

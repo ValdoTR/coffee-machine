@@ -116,6 +116,7 @@ Clone the project
 
 * tester cancel cli
 * café sans sucre alors que si
+* PHP cs fixer
 
 ## Usage
 

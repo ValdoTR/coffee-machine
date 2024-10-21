@@ -12,6 +12,6 @@ $parameters = [
     'drink' => DrinkEnum::COFFEE,
     'sugarLevel' => 2,
     'milkLevel' => 1,
-    'coins' => 5,
+    'coins' => 9,
 ];
 $coffeeMachine->testMachine(...$parameters);
