@@ -2,15 +2,23 @@
 
 ## Description
 
-Cette application simule une machine à café qui permet à l'utilisateur de sélectionner et de personnaliser différentes boissons (café, thé, chocolat) en ajoutant du sucre et du lait.
+This project implements a coffee machine simulation using Object-Oriented Programming principles and design patterns. It allows users to select drinks, customize them with sugar and milk, and handle payments.
 
-L'application utilise des design patterns tels que **State** et **Decorator** pour gérer les différentes étapes de l'interaction avec la machine.
+### Features
 
-En effet nous pouvons considérer cette machine à café comme un automate de type [FSM](https://en.wikipedia.org/wiki/Finite-state_machine).
+- **Drink Selection**: Users can choose from different types of drinks (e.g., Coffee, Tea, Chocolate).
+- **Customization Options**: Users can select sugar and milk levels for their drinks.
+- **Payment Handling**: The system manages user credit and processes payments.
+- **State Management**: The coffee machine utilizes the State design pattern to manage transitions between different states (e.g., DrinkChoiceState, OptionsChoiceState, PaymentState). Indeed, this machine is a type of [FSM](https://en.wikipedia.org/wiki/Finite-state_machine).
+- **Logging**: Detailed logs for debugging and user feedback.
 
-> La logique de la machine est pensée pour convenir à un usage moderne d'une machine à café (pouvoir annuler et récupérer son crédit à tout moment, rendre les étapes de sélection de sucre/lait optionnelles...).
-> Cela explique en partie la relative complexité du code.
-> Un système moins flexible et pas-à-pas (bloquant) aurait certes été plus simple/rapide à mettre en place mais j'ai privilégié l'évolutivité, tout en essayant de proposer un code simple à maintenir selon certains principes (DRY, SOLID, Composition, Polymorphism).
+### Architecture
+
+The project is structured around the following key components:
+
+- **Drink Classes**: Each drink (`Coffee`, `Tea`, `Chocolate`) extends an abstract `Drink` class, implementing common properties and methods.
+- **Decorator Pattern**: The `DrinkDecorator` class and its subclasses (`SugarDecorator`, `MilkDecorator`) allow for dynamic customization of drinks.
+- **State Management**: The entry point `CoffeeMachine` class manages the current state and facilitates transitions between states.
 
 ## State diagram
 
@@ -83,52 +91,33 @@ classDiagram
     PaymentState --> DrinkChoiceState : cancel()
 ```
 
-## Structure
-
-The source code follows the following structure:
-
-```shell
-├── src
-│   ├── Drink/
-│   ├── Enum/
-│   ├── State/
-│   ├── Trait/
-│   ├── Utility/
-│   ├── CoffeeMachine.php
-```
-
-**Drink/ folder:** This folder holds all classes related to drinks, including the base `Drink` class and specific drinks (`Coffee`, `Tea`, `Chocolate`) as well as the decorators.
-
-**Enum/ folder:** Contains the `DrinkEnum`, which is specifically related to the kinds of drinks.
-
-**State/ folder:** This folder contains all classes related to the state management of the coffee machine. The states themselves and the exceptions related to state transitions are grouped here.
-
-**Trait/ folder:** Any traits, like `CancellableTrait`, can be organized here. This makes it clear that these are reusable components.
-
-**Utility/ folder:** Contains a Logger file. But could contain other utility-first classes.
-
-**CoffeeMachine.php:** The entry point of the coffee machine's backend.
-
 ## Installation
 
-Clone the project
-`composer install`
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate to the directory: `cd coffee-machine`
+3. Install dependencies: `composer install`
 
 ## Usage
 
-Run this command to interact with a coffee machine made in ASCII-art right into your terminal!
+### With user interactions
 
-It's a step-by-step manipulation, not one-shot.
+Run this command to interact with the coffee machine made in ASCII-art right into your terminal!
+
+It's a *step-by-step* manipulation, not *one-shot*.
 
 ```shell
 php cli.php
 ```
 
+![cli preview](docs/cli.png)
+
+### Without user interaction
+
 Run this command to get an instant feedback of the machine.
 
 It's a one-shot manipulation, not step-by-step.
 
-> You can change the parameters in the script file directly.
+> You may change the given parameters in the script file directly.
 
 ```shell
 php cli-no-interaction.php
@@ -136,9 +125,9 @@ php cli-no-interaction.php
 
 ## Unit testing
 
-You can run the tests by running PHPUnit:
+The project includes unit tests for each state, ensuring that all main functionalities work as expected.
 
-> Just did one test to showcase the feature.
+Run the tests with:
 
 ```shell
 vendor/bin/phpunit tests --colors
@@ -154,7 +143,7 @@ vendor/bin/phpstan analyse src tests
 
 ## Code linting
 
-You can lint the code base by running PHP-CS-Fixer:
+You can lint the source code by running PHP-CS-Fixer:
 
 ```shell
 vendor/bin/php-cs-fixer fix src

@@ -6,7 +6,7 @@ use App\CoffeeMachine;
 use App\Enum\DrinkEnum;
 use App\State\DrinkChoiceState;
 
-$coffeeMachine = new CoffeeMachine(new DrinkChoiceState);
+$coffeeMachine = new CoffeeMachine(new DrinkChoiceState());
 
 $parameters = [
     'drink' => DrinkEnum::COFFEE,
