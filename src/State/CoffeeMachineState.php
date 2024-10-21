@@ -6,11 +6,11 @@ use App\Enum\DrinkEnum;
 
 interface CoffeeMachineState
 {
-    public function selectDrink(DrinkEnum $drink);
-    public function selectSugar(int $sugarLevel);
-    public function selectMilk(int $milkLevel);
-    public function confirmDrink();
-    public function insertCoin(int $coins);
-    public function finish();
-    public function cancel();
+    public function selectDrink(DrinkEnum $drink): OptionsChoiceState;
+    public function selectSugar(int $sugarLevel): OptionsChoiceState;
+    public function selectMilk(int $milkLevel): OptionsChoiceState;
+    public function confirmDrink(): PaymentState;
+    public function insertCoin(int $coins): DispenseState|PaymentState;
+    public function finish(): DrinkChoiceState;
+    public function cancel(): DrinkChoiceState;
 }

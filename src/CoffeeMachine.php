@@ -4,6 +4,7 @@ namespace App;
 
 use App\Enum\DrinkEnum;
 use App\State\CoffeeMachineState;
+use App\State\DrinkChoiceState;
 use App\State\IllegalStateTransitionException;
 use App\Utility\Logger;
 
@@ -22,7 +23,7 @@ final class CoffeeMachine
         return $this->state;
     }
 
-    private function setState(CoffeeMachineState $state)
+    private function setState(CoffeeMachineState $state): void
     {
         $this->state = $state;
         Logger::logDebug("setState", get_class($state));
@@ -31,7 +32,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectDrink(DrinkEnum $drink)
+    public function selectDrink(DrinkEnum $drink): void
     {
         try {
             $this->setState($this->state->selectDrink($drink));
@@ -45,7 +46,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectSugar(int $sugarLevel)
+    public function selectSugar(int $sugarLevel): void
     {
         try {
             $this->setState($this->state->selectSugar($sugarLevel));
@@ -62,7 +63,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectMilk(int $milkLevel)
+    public function selectMilk(int $milkLevel): void
     {
         try {
             $this->setState($this->state->selectMilk($milkLevel));
@@ -79,7 +80,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function confirmDrink()
+    public function confirmDrink(): void
     {
         try {
             $this->setState($this->state->confirmDrink());
@@ -93,7 +94,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function insertCoin(int $coins)
+    public function insertCoin(int $coins): void
     {
         try {
             $this->setState($this->state->insertCoin($coins));
@@ -110,7 +111,7 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function finish()
+    public function finish(): void
     {
         try {
             $this->setState($this->state->finish());
@@ -124,15 +125,12 @@ final class CoffeeMachine
     /**
      * @throws IllegalStateTransitionException
      */
-    public function cancel()
+    public function cancel(): DrinkChoiceState
     {
-        try {
-            Logger::logInfo("cancel");
-            return $this->state->cancel();
-        } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible d'annuler l'opération.\n";
-        }
+        Logger::logInfo("cancel");
+        return $this->state->cancel();
+        // IllegalStateTransitionException is not possible here
+        // because cancel() is implemented in every State as CancellableTrait
     }
 
     // E2E test function

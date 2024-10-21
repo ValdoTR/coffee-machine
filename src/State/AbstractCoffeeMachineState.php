@@ -15,7 +15,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectDrink(DrinkEnum $drink)
+    public function selectDrink(DrinkEnum $drink): OptionsChoiceState
     {
         throw new IllegalStateTransitionException();
     }
@@ -23,7 +23,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectSugar(int $sugarLevel)
+    public function selectSugar(int $sugarLevel): OptionsChoiceState
     {
         throw new IllegalStateTransitionException();
     }
@@ -31,7 +31,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectMilk(int $milkLevel)
+    public function selectMilk(int $milkLevel): OptionsChoiceState
     {
         throw new IllegalStateTransitionException();
     }
@@ -39,7 +39,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function confirmDrink()
+    public function confirmDrink(): PaymentState
     {
         throw new IllegalStateTransitionException();
     }
@@ -47,7 +47,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function insertCoin(int $coins)
+    public function insertCoin(int $coins): DispenseState|PaymentState
     {
         throw new IllegalStateTransitionException();
     }
@@ -55,7 +55,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function finish()
+    public function finish(): DrinkChoiceState
     {
         throw new IllegalStateTransitionException();
     }
@@ -63,7 +63,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function cancel()
+    public function cancel(): DrinkChoiceState
     {
         throw new IllegalStateTransitionException();
     }

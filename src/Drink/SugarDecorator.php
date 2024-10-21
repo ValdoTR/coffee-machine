@@ -8,26 +8,25 @@ use App\Enum\DrinkEnum;
 
 class SugarDecorator extends DrinkDecorator
 {
-    private int $sugarLevel;
+    private int $sugarLevel = 0; // Default sugar level
 
-    public function __construct(Drink $drink, int $sugarLevel)
+    public function __construct(Drink $drinkObject, int $sugarLevel)
     {
-        parent::__construct($drink);
+        parent::__construct($drinkObject);
         $this->sugarLevel = $sugarLevel;
     }
 
     public function getName(): DrinkEnum
     {
-        return $this->drink->getName();
+        return $this->name;
     }
 
     public function getPrice(): int
     {
-        // No additional cost but we keep it for potential future changes
-        return parent::getPrice();
+        return $this->price;
     }
 
-    public function getMilkLevel(): int
+    public function getSugarLevel(): int
     {
         return $this->sugarLevel;
     }

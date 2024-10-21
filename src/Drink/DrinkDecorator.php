@@ -7,20 +7,17 @@ use App\Enum\DrinkEnum;
 
 abstract class DrinkDecorator extends Drink
 {
-    protected Drink $drink;
-
-    public function __construct(Drink $drink)
+    public function __construct(protected Drink $drinkObject)
     {
-        $this->drink = $drink;
     }
 
     public function getName(): DrinkEnum
     {
-        return $this->drink->getName();
+        return $this->name;
     }
 
     public function getPrice(): int
     {
-        return $this->drink->getPrice();
+        return $this->price;
     }
 }
