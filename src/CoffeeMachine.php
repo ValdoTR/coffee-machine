@@ -42,6 +42,7 @@ final class CoffeeMachine
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Une erreur est survenue. Impossible de sélectionner la boisson.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         }
     }
 
@@ -56,9 +57,11 @@ final class CoffeeMachine
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Une erreur est survenue. Impossible de sélectionner le sucre.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         } catch (\InvalidArgumentException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Veuillez choisir un niveau de sucre entre 0 et 4.");
+            throw new \InvalidArgumentException(); // propagate the exception in order to test it
         }
     }
 
@@ -72,10 +75,12 @@ final class CoffeeMachine
             Logger::logInfo("CoffeeMachine - selectMilk", $milkLevel);
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
-            Logger::echoFeedback("Veuillez choisir un niveau de lait entre 0 et 4.");
+            Logger::echoFeedback("Une erreur est survenue. Impossible de sélectionner le lait.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         } catch (\InvalidArgumentException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Veuillez choisir un niveau de lait entre 0 et 4.");
+            throw new \InvalidArgumentException(); // propagate the exception in order to test it
         }
     }
 
@@ -90,6 +95,7 @@ final class CoffeeMachine
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Une erreur est survenue. Impossible de servir la boisson.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         }
     }
 
@@ -104,9 +110,11 @@ final class CoffeeMachine
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Une erreur est survenue. Impossible d'insérer la pièce.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         } catch (\InvalidArgumentException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Veuillez entrer un nombre de pièces entre 1 et 9.");
+            throw new \InvalidArgumentException(); // propagate the exception in order to test it
         }
     }
 
@@ -121,6 +129,7 @@ final class CoffeeMachine
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
             Logger::echoFeedback("Une erreur est survenue. Impossible de finaliser l'opération.");
+            throw new IllegalStateTransitionException(); // propagate the exception in order to test it
         }
     }
 

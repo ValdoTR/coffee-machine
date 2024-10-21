@@ -141,7 +141,7 @@ You can run the tests by running PHPUnit:
 > Just did one test to showcase the feature.
 
 ```shell
-vendor/bin/phpunit tests
+vendor/bin/phpunit tests --colors
 ```
 
 ## Code analysis
