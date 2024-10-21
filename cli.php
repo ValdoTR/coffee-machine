@@ -27,6 +27,7 @@ class UserInterface {
     private int $credit = 0;
     private int $sugarLevel = 0;
     private int $milkLevel = 0;
+    private bool $drinkHasBeenPaid;
 
     public function __construct(private CoffeeMachine $coffeeMachine)
     {       
@@ -52,6 +53,7 @@ class UserInterface {
     // Drink choice (Coffee, Tea, Chocolate)
     public function askForDrink(): StepEnum
     {
+        $this->drinkHasBeenPaid = false;
         while ($this->step === StepEnum::DRINK) {
             $this->drink = $this->validateNumericInput($this->getUserInput("Sélectionnez une boisson"), 1, 3);
             if ($this->drink === -1) {
@@ -126,6 +128,7 @@ class UserInterface {
     {
         while ($this->step === StepEnum::DISPENSE) {
             $this->credit -= DrinkEnum::from($this->drink)->price();
+            $this->drinkHasBeenPaid = true;
 
             // Recommencer ou quitter
             $input = $this->getUserInput("Voulez-vous une autre boisson ? (o/N)");
@@ -222,33 +225,35 @@ class UserInterface {
         // Clear the screen so that we can update it
         system('clear');
 
-        $drinkName = DrinkEnum::from($this->drink)->label();        
+        if ($this->drinkHasBeenPaid) {
+            $drinkName = DrinkEnum::from($this->drink)->label();        
 
-        // Create messages based on sugar and milk levels
-        $sugarMessage = ($this->sugarLevel > 0) ? "avec $this->sugarLevel sucre" . ($this->sugarLevel > 1 ? 's' : '') : "sans sucre";
-        $milkMessage = ($this->milkLevel > 0) ? "avec $this->milkLevel lait" . ($this->milkLevel > 1 ? 's' : '') : "sans lait";
-
-        echo "Savourez votre $drinkName $sugarMessage $milkMessage.\n";
-
-        echo "
-                    {
-                {   }
-                }_{ __{
-             .-{   }   }-.
-            (   }     {   )
-            |`-.._____..-'|
-            |             ;--.
-            |            (__  \
-            |             | )  )
-            |             |/  /
-            |             /  /     À bientôt
-            |            (  /
-            \             y'
-             `-.._____..-'
-        \n";
-
-        if ($this->credit > 0) {
-            echo $this->formatSuccess("Vous récuperez {$this->credit} pièces.");
+            // Create messages based on sugar and milk levels
+            $sugarMessage = ($this->sugarLevel > 0) ? "avec $this->sugarLevel sucre" . ($this->sugarLevel > 1 ? 's' : '') : "sans sucre";
+            $milkMessage = ($this->milkLevel > 0) ? "avec $this->milkLevel lait" . ($this->milkLevel > 1 ? 's' : '') : "sans lait";
+    
+            echo "Savourez votre $drinkName $sugarMessage $milkMessage.\n";
+    
+            echo "
+                        {
+                    {   }
+                    }_{ __{
+                 .-{   }   }-.
+                (   }     {   )
+                |`-.._____..-'|
+                |             ;--.
+                |            (__  \
+                |             | )  )
+                |             |/  /
+                |             /  /     À bientôt
+                |            (  /
+                \             y'
+                 `-.._____..-'
+            \n";
+    
+            if ($this->credit > 0) {
+                echo $this->formatSuccess("Vous récuperez {$this->credit} pièces.");
+            }
         }
 
         $this->drink = 0;

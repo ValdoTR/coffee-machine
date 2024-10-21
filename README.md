@@ -114,8 +114,6 @@ The source code follows the following structure:
 Clone the project
 `composer install`
 
-* tester cancel cli
-* café sans sucre alors que si
 * PHP cs fixer
 
 ## Usage
