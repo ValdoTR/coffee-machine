@@ -20,6 +20,8 @@ final class DrinkChoiceState extends AbstractCoffeeMachineState
             DrinkEnum::CHOCOLATE => new Chocolate(),
         };
 
+        echo "Boisson sélectionnée: {$drink->label()} ({$drink->price()} pièces)\n";
+
         // Transition to OptionsChoice State
         return new OptionsChoiceState($drinkObject);
     }
