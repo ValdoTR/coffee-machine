@@ -3,7 +3,11 @@
 namespace App\Tests;
 
 use App\CoffeeMachine;
+use App\Enum\DrinkEnum;
+use App\State\DispenseState;
 use App\State\DrinkChoiceState;
+use App\State\OptionsChoiceState;
+use App\State\PaymentState;
 use PHPUnit\Framework\TestCase;
 
 final class CoffeeMachineTest extends TestCase
@@ -15,8 +19,9 @@ final class CoffeeMachineTest extends TestCase
         $this->coffeeMachine = new CoffeeMachine(new DrinkChoiceState);
     }
 
-    public function testIsDrinkChoice(): void
+    public function testSelectCoffeeAdd(): void
     {
-        $this->assertTrue($this->coffeeMachine->isDrinkChoice());
+        $this->coffeeMachine->selectDrink(DrinkEnum::COFFEE);
+        $this->assertInstanceOf(OptionsChoiceState::class, $this->coffeeMachine->getState());
     }
 }
