@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\State;
 
@@ -27,7 +29,7 @@ class DispenseState extends AbstractCoffeeMachineState
         if ($change > 0) {
             Logger::echoFeedback("Vous récupérez $change pièces.");
         }
-        
+
         // Transition back to DrinkChoice State
         // for the next transaction
         return new DrinkChoiceState();

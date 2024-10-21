@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App;
 
@@ -134,7 +136,7 @@ final class CoffeeMachine
     }
 
     // E2E test function
-    public function testMachine(DrinkEnum $drink, int $sugarLevel, int $milkLevel, int $coins): void 
+    public function testMachine(DrinkEnum $drink, int $sugarLevel, int $milkLevel, int $coins): void
     {
         $this->selectDrink($drink);
         $this->selectSugar($sugarLevel);

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\State;
 
@@ -10,7 +12,8 @@ use App\Trait\CancellableTrait;
 
 abstract class AbstractCoffeeMachineState implements CoffeeMachineState
 {
-    use CreditHandableTrait, CancellableTrait;
+    use CreditHandableTrait;
+    use CancellableTrait;
 
     /**
      * @throws IllegalStateTransitionException

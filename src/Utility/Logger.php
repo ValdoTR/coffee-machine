@@ -8,17 +8,17 @@ final class Logger
     {
         self::log('DEBUG', $message, $context);
     }
-    
+
     public static function logInfo(string $message, mixed $context = null): void
     {
         self::log('INFO', $message, $context);
     }
-    
+
     public static function logWarning(string $message, mixed $context = null): void
     {
         self::log('WARNING', $message, $context);
     }
-    
+
     public static function logError(string $message, mixed $context = null): void
     {
         self::log('ERROR', $message, $context);
@@ -30,7 +30,7 @@ final class Logger
         error_log($prefix . $message);
         self::logContext($context);
     }
-    
+
     private static function logContext(mixed $context = null): void
     {
         if ($context !== null) {

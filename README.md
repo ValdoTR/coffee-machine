@@ -151,3 +151,11 @@ You can run a static analysis of the code base by running PHPStan:
 ```shell
 vendor/bin/phpstan analyse src tests
 ```
+
+## Code linting
+
+You can lint the code base by running PHP-CS-Fixer:
+
+```shell
+vendor/bin/php-cs-fixer fix src
+```

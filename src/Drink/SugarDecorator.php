@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Drink;
 
@@ -9,7 +11,8 @@ class SugarDecorator extends DrinkDecorator
 {
     protected int $sugarLevel = 0;
 
-    public function __construct(Drink $drinkObject, int $sugarLevel) {
+    public function __construct(Drink $drinkObject, int $sugarLevel)
+    {
         parent::__construct($drinkObject);
         $this->sugarLevel = $sugarLevel;
     }
@@ -19,7 +22,8 @@ class SugarDecorator extends DrinkDecorator
         return parent::getPrice(); // Or adjust if sugar has a cost
     }
 
-    public function getSugarLevel(): int {
+    public function getSugarLevel(): int
+    {
         return $this->sugarLevel;
     }
 }

@@ -1,13 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Enum;
 
-enum DrinkEnum: int {
+enum DrinkEnum: int
+{
     case COFFEE = 1;
     case TEA = 2;
     case CHOCOLATE = 3;
 
-    public function label(): string {
+    public function label(): string
+    {
         return match ($this) {
             self::COFFEE => 'Café',
             self::TEA => 'Thé',
@@ -15,7 +19,8 @@ enum DrinkEnum: int {
         };
     }
 
-    public function price(): int {
+    public function price(): int
+    {
         return match ($this) {
             self::COFFEE => 2,
             self::TEA => 3,
