@@ -15,6 +15,11 @@ class MilkDecorator extends DrinkDecorator
         $this->milkLevel = $milkLevel;
     }
 
+    public function getPrice(): int
+    {
+        return parent::getPrice(); // Or adjust if milk has a cost
+    }
+
     public function getMilkLevel(): int
     {
         return $this->milkLevel;

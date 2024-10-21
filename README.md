@@ -114,8 +114,8 @@ The source code follows the following structure:
 Clone the project
 `composer install`
 
-* rendre la monnaie à la fin
-* Café sans sucre alors que SIII
+* tester cancel cli
+* café sans sucre alors que si
 
 ## Usage
 

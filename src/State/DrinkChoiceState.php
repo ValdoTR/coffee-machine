@@ -9,6 +9,7 @@ use App\Enum\DrinkEnum;
 use App\State\AbstractCoffeeMachineState;
 use App\State\OptionsChoiceState;
 use App\Utility\Logger;
+use App\Drink\Drink;
 
 final class DrinkChoiceState extends AbstractCoffeeMachineState
 {

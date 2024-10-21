@@ -24,14 +24,14 @@ final class Logger
         self::log('ERROR', $message, $context);
     }
 
-    public static function log(string $level, string $message, mixed $context = null): void
+    private static function log(string $level, string $message, mixed $context = null): void
     {
         $prefix = sprintf("[%s] %s | ", date('Y-m-d H:i:s'), strtoupper($level));
         error_log($prefix . $message);
         self::logContext($context);
     }
     
-    public static function logContext(mixed $context = null): void
+    private static function logContext(mixed $context = null): void
     {
         if ($context !== null) {
             error_log("> " . print_r($context, true));

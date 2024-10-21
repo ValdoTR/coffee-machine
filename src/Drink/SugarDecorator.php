@@ -4,6 +4,7 @@ namespace App\Drink;
 
 use App\Drink\Drink;
 use App\Drink\DrinkDecorator;
+use App\Enum\DrinkEnum;
 
 class SugarDecorator extends DrinkDecorator
 {
@@ -13,6 +14,11 @@ class SugarDecorator extends DrinkDecorator
     {
         parent::__construct($drinkObject);
         $this->sugarLevel = $sugarLevel;
+    }
+
+    public function getPrice(): int
+    {
+        return parent::getPrice(); // Or adjust if sugar has a cost
     }
 
     public function getSugarLevel(): int

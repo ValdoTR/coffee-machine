@@ -49,6 +49,7 @@ final class CoffeeMachine
     public function selectSugar(int $sugarLevel): void
     {
         try {
+            $this->state->selectSugar($sugarLevel);
             Logger::logInfo("CoffeeMachine - selectSugar", $sugarLevel);
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
@@ -65,6 +66,7 @@ final class CoffeeMachine
     public function selectMilk(int $milkLevel): void
     {
         try {
+            $this->state->selectMilk($milkLevel);
             Logger::logInfo("CoffeeMachine - selectMilk", $milkLevel);
         } catch (IllegalStateTransitionException $e) {
             Logger::logError("CoffeeMachine - error", $e->getMessage());
@@ -134,19 +136,10 @@ final class CoffeeMachine
     // E2E test function
     public function testMachine(DrinkEnum $drink, int $sugarLevel, int $milkLevel, int $coins): void 
     {
-        // Select a drink
         $this->selectDrink($drink);
-
-        // Select sugar
         $this->selectSugar($sugarLevel);
-
-        // Select milk
         $this->selectMilk($milkLevel);
-
-        // Confirm the drink
         $this->confirmDrink();
-
-        // Insert coins
         $this->insertCoin($coins);
     }
 }
