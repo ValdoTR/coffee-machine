@@ -96,15 +96,28 @@ class UserInterface {
     {
         while ($this->step === StepEnum::PAYMENT) {
             $this->coffeeMachine->confirmDrink();
+            $drinkName = DrinkEnum::from($this->drink)->label();
             $drinkPrice = DrinkEnum::from($this->drink)->price();
-            $coins = $this->validateNumericInput($this->getUserInput("Insérez au moins $drinkPrice pièces"), 1, 9);
-            if ($coins === -1) {
-                continue;
+
+            // If user has a remaining credit, don't ask for coins if the credit is enought to pay the selected drink
+            if ($this->credit >= $drinkPrice) {
+                return StepEnum::DISPENSE;
+            } else {
+                $coins = $this->validateNumericInput($this->getUserInput("Insérez au moins $drinkPrice pièces"), 1, 9);
+                if ($coins === -1) {
+                    continue;
+                }
+                $this->coffeeMachine->insertCoin($coins);
+                $this->credit += $coins;
+
+                // If the current credit is not enough, the user has to add more coins
+                if ($this->credit >= $drinkPrice) {
+                    return StepEnum::DISPENSE;
+                } else {
+                    $this->feedback = $this->formatError("Crédit insuffisant. Un $drinkName coûte $drinkPrice pièce" . ($drinkPrice > 1 ? 's' : ''). ".");
+                    continue;
+                }
             }
-            $this->coffeeMachine->insertCoin($coins);
-            $this->credit += $coins;
-            $this->feedback = "";
-            return StepEnum::DISPENSE;
         }
     }
 
@@ -113,7 +126,6 @@ class UserInterface {
     {
         while ($this->step === StepEnum::DISPENSE) {
             $this->credit -= DrinkEnum::from($this->drink)->price();
-            $this->feedback = $this->formatSuccess("Votre boisson est prête!");
 
             // Recommencer ou quitter
             $input = $this->getUserInput("Voulez-vous une autre boisson ? (o/N)");
@@ -121,6 +133,11 @@ class UserInterface {
             if (strtolower($input) !== 'o') {
                 $this->handleExit();
             }
+
+            $this->drink = 0;
+            $this->sugarLevel = 0;
+            $this->milkLevel = 0;
+
             return StepEnum::DRINK;
         }
     }
@@ -205,6 +222,14 @@ class UserInterface {
         // Clear the screen so that we can update it
         system('clear');
 
+        $drinkName = DrinkEnum::from($this->drink)->label();        
+
+        // Create messages based on sugar and milk levels
+        $sugarMessage = ($this->sugarLevel > 0) ? "avec $this->sugarLevel sucre" . ($this->sugarLevel > 1 ? 's' : '') : "sans sucre";
+        $milkMessage = ($this->milkLevel > 0) ? "avec $this->milkLevel lait" . ($this->milkLevel > 1 ? 's' : '') : "sans lait";
+
+        echo "Savourez votre $drinkName $sugarMessage $milkMessage.\n";
+
         echo "
                     {
                 {   }
@@ -226,6 +251,7 @@ class UserInterface {
             echo $this->formatSuccess("Vous récuperez {$this->credit} pièces.");
         }
 
+        $this->drink = 0;
         $this->credit = 0;
         $this->sugarLevel = 0;
         $this->milkLevel = 0;
