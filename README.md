@@ -22,7 +22,7 @@ The project is structured around the following key components:
 
 ## Installation
 
-1. Clone the repository: `git clone <repository-url>`
+1. Clone the repository
 2. Navigate to the directory: `cd coffee-machine`
 3. Install dependencies: `composer install`
 
