@@ -39,7 +39,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function dispenseDrink()
+    public function confirmDrink()
     {
         throw new IllegalStateTransitionException();
     }

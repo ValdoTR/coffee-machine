@@ -7,11 +7,19 @@ enum DrinkEnum: int {
     case TEA = 2;
     case CHOCOLATE = 3;
 
-    public function label() {
+    public function label(): string {
         return match ($this) {
             self::COFFEE => 'Café',
             self::TEA => 'Thé',
             self::CHOCOLATE => 'Chocolat',
+        };
+    }
+
+    public function price(): int {
+        return match ($this) {
+            self::COFFEE => 2,
+            self::TEA => 3,
+            self::CHOCOLATE => 5,
         };
     }
 }
