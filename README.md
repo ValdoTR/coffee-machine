@@ -10,7 +10,7 @@ En effet nous pouvons considérer cette machine à café comme un automate de ty
 
 > La logique de la machine est pensée pour convenir à un usage moderne d'une machine à café (pouvoir annuler et récupérer son crédit à tout moment, rendre les étapes de sélection de sucre/lait optionnelles...).
 > Cela explique en partie la relative complexité du code.
-> Un système moins flexible et pas-à-pas (bloquant) aurait certes été plus simple/rapide à mettre en place mais j'ai privilégié l'évolutivité, tout en essayant de proposer un code simple à maintenir selon les principes DRY et SOLID.
+> Un système moins flexible et pas-à-pas (bloquant) aurait certes été plus simple/rapide à mettre en place mais j'ai privilégié l'évolutivité, tout en essayant de proposer un code simple à maintenir selon certains principes (DRY, SOLID, Composition, Polymorphism).
 
 ## State diagram
 
@@ -89,56 +89,69 @@ The source code follows the following structure:
 
 ```shell
 ├── src
-│   ├── Drink
-│   │   ├── Chocolate.php
-│   │   ├── Coffee.php
-│   │   ├── DrinkDecorator.php
-│   │   ├── Drink.php
-│   │   ├── MilkDecorator.php
-│   │   ├── SugarDecorator.php
-│   │   └── Tea.php
-│   ├── Enum
-│   │   └── DrinkEnum.php
-│   ├── State
-│   │   ├── AbstractCoffeeMachineState.php
-│   │   ├── CoffeeMachineState.php
-│   │   ├── DispenseState.php
-│   │   ├── DrinkChoiceState.php
-│   │   ├── IllegalStateTransitionException.php
-│   │   ├── OptionsChoiceState.php
-│   │   └── PaymentState.php
-│   ├─── Trait
-│   │   ├── CancellableTrait.php
-│   │   └── CoinHandlerTrait.php
+│   ├── Drink/
+│   ├── Enum/
+│   ├── State/
+│   ├── Trait/
+│   ├── Utility/
 │   ├── CoffeeMachine.php
 ```
 
-**Drink:** This folder holds all classes related to drinks, including the base `Drink` class and specific drinks (`Coffee`, `Tea`, `Chocolate`) as well as the decorators.
+**Drink/ folder:** This folder holds all classes related to drinks, including the base `Drink` class and specific drinks (`Coffee`, `Tea`, `Chocolate`) as well as the decorators.
 
-**Enum:** Contains the `DrinkEnum`, which is specifically related to the kinds of drinks.
+**Enum/ folder:** Contains the `DrinkEnum`, which is specifically related to the kinds of drinks.
 
-**State:** This folder contains all classes related to the state management of the coffee machine. The states themselves and the exceptions related to state transitions are grouped here.
+**State/ folder:** This folder contains all classes related to the state management of the coffee machine. The states themselves and the exceptions related to state transitions are grouped here.
 
-**Trait:** Any traits, like `CancellableTrait`, can be organized here. This makes it clear that these are reusable components.
+**Trait/ folder:** Any traits, like `CancellableTrait`, can be organized here. This makes it clear that these are reusable components.
+
+**Utility/ folder:** Contains a Logger file. But could contain other utility-first classes.
+
+**CoffeeMachine.php:** The entry point of the coffee machine's backend.
 
 ## Installation
 
 Clone the project
 `composer install`
 
-rename $drink to $drinkObject when applicable
-
-DrinkEnum::TEA->name; // 'TEA'
-DrinkEnum::TEA->value; // 2
-DrinkEnum::TEA->label(); // 'Thé'
-DrinkEnum::from(2)->label(); // 'Thé'
-
-add logs instead of echos?
+* rendre la monnaie à la fin
+* PHPStan?
+* Café sans sucre alors que SIII
 
 ## Usage
 
-Run tests unit tests
+Run this command to interact with a coffee machine made in ASCII-art right into your terminal!
+
+It's a step-by-step manipulation, not one-shot.
 
 ```shell
-./vendor/bin/phpunit tests
+php cli.php
+```
+
+Run this command to get an instant feedback of the machine.
+
+It's a one-shot manipulation, not step-by-step.
+
+> You can change the parameters in the script file directly.
+
+```shell
+php cli-no-interaction.php
+```
+
+## Unit testing
+
+You can run the tests by running PHPUnit:
+
+> Just did one test to showcase the feature.
+
+```shell
+vendor/bin/phpunit tests
+```
+
+## Code analysis
+
+You can run a static analysis of the code base by running PHPStan:
+
+```shell
+vendor/bin/phpstan analyse src tests
 ```

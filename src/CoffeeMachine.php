@@ -136,7 +136,7 @@ final class CoffeeMachine
     }
 
     // E2E test function
-    public function testMachine(DrinkEnum $drink, int $sugarLevel = 0, int $milkLevel = 0, int $coins): void 
+    public function testMachine(DrinkEnum $drink, int $sugarLevel, int $milkLevel, int $coins): void 
     {
         // Select a drink
         $this->selectDrink($drink);
