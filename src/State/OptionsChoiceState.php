@@ -14,25 +14,21 @@ final class OptionsChoiceState extends AbstractCoffeeMachineState
     {
     }
 
-    public function selectSugar(int $sugarLevel): self
+    public function selectSugar(int $sugarLevel): void
     {
         if ($sugarLevel >= 0 && $sugarLevel <= 4) {
             $this->drinkObject = new SugarDecorator($this->drinkObject, $sugarLevel);
             echo "Niveau de sucre sélectionné: $sugarLevel\n";
-            // Return the current instance as we don't want to transition
-            return $this;
         } else {
             throw new \InvalidArgumentException("Invalid argument: The sugar level must be an integer within the range [0, 4]. Received: $sugarLevel.\n");
         }
     }
 
-    public function selectMilk(int $milkLevel): self
+    public function selectMilk(int $milkLevel): void
     {
         if ($milkLevel >= 0 && $milkLevel <= 4) {
             $this->drinkObject = new MilkDecorator($this->drinkObject, $milkLevel);
             echo "Niveau de lait sélectionné: $milkLevel\n";
-            // Return the current instance as we don't want to transition
-            return $this;
         } else {
             throw new \InvalidArgumentException("Invalid argument: The milk level must be an integer within the range [0, 4]. Received: $milkLevel.\n");
         }

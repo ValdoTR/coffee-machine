@@ -23,7 +23,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectSugar(int $sugarLevel): OptionsChoiceState
+    public function selectSugar(int $sugarLevel): void
     {
         throw new IllegalStateTransitionException();
     }
@@ -31,7 +31,7 @@ abstract class AbstractCoffeeMachineState implements CoffeeMachineState
     /**
      * @throws IllegalStateTransitionException
      */
-    public function selectMilk(int $milkLevel): OptionsChoiceState
+    public function selectMilk(int $milkLevel): void
     {
         throw new IllegalStateTransitionException();
     }

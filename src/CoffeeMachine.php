@@ -49,7 +49,6 @@ final class CoffeeMachine
     public function selectSugar(int $sugarLevel): void
     {
         try {
-            $this->setState($this->state->selectSugar($sugarLevel));
             Logger::logInfo("selectSugar", $sugarLevel);
         } catch (IllegalStateTransitionException $e) {
             Logger::logError($e->getMessage());
@@ -66,7 +65,6 @@ final class CoffeeMachine
     public function selectMilk(int $milkLevel): void
     {
         try {
-            $this->setState($this->state->selectMilk($milkLevel));
             Logger::logInfo("selectMilk", $milkLevel);
         } catch (IllegalStateTransitionException $e) {
             Logger::logError($e->getMessage());
