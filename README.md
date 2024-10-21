@@ -114,8 +114,6 @@ The source code follows the following structure:
 Clone the project
 `composer install`
 
-* PHP cs fixer
-
 ## Usage
 
 Run this command to interact with a coffee machine made in ASCII-art right into your terminal!

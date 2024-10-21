@@ -20,7 +20,7 @@ class DispenseState extends AbstractCoffeeMachineState
 
     public function finish(): DrinkChoiceState
     {
-        Logger::echoFeedback("Bonne dégustation !");
+        Logger::echoFeedback("Bonne dégustation de votre " . $this->drinkObject->getName()->label() . " !");
 
         // Give back current credit to the user
         $change = $this->returnChange();

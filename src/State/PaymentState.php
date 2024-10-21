@@ -25,7 +25,7 @@ final class PaymentState extends AbstractCoffeeMachineState
 
         // Check if the user has inserted enough money
         if ($this->getCredit() >= $this->drinkObject->getPrice()) {
-            Logger::echoFeedback("Achat de votre " . $this->drinkObject->getName()->label() . " validé.");
+            Logger::echoFeedback("Achat validé.");
             $this->chargeUser($this->drinkObject->getPrice());
             // Transition to Dispense State
             return new DispenseState($this->drinkObject);
