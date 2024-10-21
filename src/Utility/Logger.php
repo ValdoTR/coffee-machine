@@ -34,7 +34,13 @@ final class Logger
     public static function logContext(mixed $context = null): void
     {
         if ($context !== null) {
-            error_log(print_r($context, true));
+            error_log("> " . print_r($context, true));
         }
-    }    
+    }
+
+    public static function echoFeedback(string $message): void
+    {
+        // Logs in bold text
+        echo "\033[1m$message\033[0m\n";
+    }
 }

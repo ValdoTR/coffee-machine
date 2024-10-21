@@ -7,6 +7,7 @@ use App\Drink\MilkDecorator;
 use App\Drink\SugarDecorator;
 use App\State\AbstractCoffeeMachineState;
 use App\State\DrinkChoiceState;
+use App\Utility\Logger;
 
 class DispenseState extends AbstractCoffeeMachineState
 {
@@ -30,14 +31,14 @@ class DispenseState extends AbstractCoffeeMachineState
         $milkMessage = ($milkLevel > 0) ? "avec $milkLevel lait" . ($milkLevel > 1 ? 's' : '') : "sans lait";
 
         // Print out the full message
-        echo $this->drinkObject->getName()->label() . $sugarMessage . " et " . $milkMessage . " en cours de préparation...\n";
+        Logger::echoFeedback($this->drinkObject->getName()->label() . $sugarMessage . " et " . $milkMessage . " en cours de préparation...");
 
-        echo "Bonne dégustation !\n";
+        Logger::echoFeedback("Bonne dégustation !");
 
         // Give back current credit to the user
         $change = $this->returnChange();
         if ($change > 0) {
-            echo "Vous récupérez $change pièces.\n";
+            Logger::echoFeedback("Vous récupérez $change pièces.");
         }
         
         // Transition back to DrinkChoice State

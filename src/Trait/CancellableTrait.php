@@ -4,6 +4,7 @@ namespace App\Trait;
 
 use App\State\DrinkChoiceState;
 use App\Trait\CreditHandableTrait;
+use App\Utility\Logger;
 
 trait CancellableTrait
 {
@@ -14,7 +15,7 @@ trait CancellableTrait
         // Give back current credit to the user
         $change = $this->returnChange();
         if ($change > 0) {
-            echo "Transaction annulée. Vous récupérez $change pièces.\n";
+            Logger::echoFeedback("Transaction annulée. Vous récupérez $change pièces.");
         }
 
         // Transition back to DrinkChoice State

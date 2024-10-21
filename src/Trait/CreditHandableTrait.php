@@ -2,24 +2,35 @@
 
 namespace App\Trait;
 
+use App\Utility\Logger;
+
 trait CreditHandableTrait
 {
-    protected int $credit = 0;
+    protected static int $credit = 0;
 
     public function getCredit(): int
     {
-        return $this->credit;
+        return self::$credit;
     }
 
-    public function addCredit(int $amount): void
+    public function addCoins(int $coins): void
     {
-        $this->credit += $amount;
+        self::$credit += $coins;
+        Logger::logDebug("CreditHandableTrait - Coins added: $coins. Total credit: " . self::$credit);
+    }
+
+    public function chargeUser(int $drinkPrice): void
+    {
+        self::$credit -= $drinkPrice;
+        Logger::logDebug("CreditHandableTrait - Charged: $drinkPrice. Remaining credit: " . self::$credit);
     }
 
     public function returnChange(): int
     {
-        $change = $this->credit;
-        $this->credit = 0; // Reset credit after returning
+        Logger::logDebug("CreditHandableTrait - Returning credit: " . self::$credit);
+        $change = self::$credit;
+        self::$credit = 0; // Reset credit after returning
+        Logger::logDebug("CreditHandableTrait - Credit after change returned: " . self::$credit);
         return $change;
     }
 }

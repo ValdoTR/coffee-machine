@@ -5,6 +5,7 @@ namespace App\State;
 use App\Drink\Drink;
 use App\State\AbstractCoffeeMachineState;
 use App\State\DispenseState;
+use App\Utility\Logger;
 
 final class PaymentState extends AbstractCoffeeMachineState
 {
@@ -16,19 +17,20 @@ final class PaymentState extends AbstractCoffeeMachineState
     {
         if ($coins >= 1 && $coins <= 9) {
             // Add the inserted coins to the current credit
-            $this->addCredit($coins);
-            echo "Vous avez inséré $coins pièce" . ($coins > 1 ? 's' : ''). ". Crédit : " . $this->getCredit() . " pièce" . ($coins > 1 ? 's' : ''). ".\n";
+            $this->addCoins($coins);
+            Logger::echoFeedback("Vous avez inséré $coins pièce" . ($coins > 1 ? 's' : ''). ". Crédit : " . $this->getCredit() . " pièce" . ($coins > 1 ? 's' : ''). ".");
         } else {
-            throw new \InvalidArgumentException("Invalid argument: The number of coins must be an integer within the range [1, 9]. Received: $coins.\n");
+            throw new \InvalidArgumentException("Invalid argument: The number of coins must be an integer within the range [1, 9]. Received: $coins.");
         }
 
         // Check if the user has inserted enough money
         if ($this->getCredit() >= $this->drinkObject->getPrice()) {
-            echo "Achat de votre " . $this->drinkObject->getName()->label() . " validé.\n";
+            Logger::echoFeedback("Achat de votre " . $this->drinkObject->getName()->label() . " validé.");
+            $this->chargeUser($this->drinkObject->getPrice());
             // Transition to Dispense State
             return new DispenseState($this->drinkObject);
         } else {
-            echo "Crédit insuffisant. Un {$this->drinkObject->getName()->label()} coûte {$this->drinkObject->getPrice()} pièce" . ($coins > 1 ? 's' : ''). ".\n";
+            Logger::echoFeedback("Crédit insuffisant. Un {$this->drinkObject->getName()->label()} coûte {$this->drinkObject->getPrice()} pièce" . ($coins > 1 ? 's' : ''). ".");
             return $this;
         }
     }

@@ -115,7 +115,6 @@ Clone the project
 `composer install`
 
 * rendre la monnaie à la fin
-* PHPStan?
 * Café sans sucre alors que SIII
 
 ## Usage

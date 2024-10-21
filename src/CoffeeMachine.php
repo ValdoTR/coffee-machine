@@ -19,14 +19,14 @@ final class CoffeeMachine
 
     public function getState(): CoffeeMachineState
     {
-        Logger::logDebug("getState", get_class($this->state));
+        Logger::logDebug("CoffeeMachine - getState", get_class($this->state));
         return $this->state;
     }
 
     private function setState(CoffeeMachineState $state): void
     {
         $this->state = $state;
-        Logger::logDebug("setState", get_class($state));
+        Logger::logDebug("CoffeeMachine - setState", get_class($state));
     }
 
     /**
@@ -36,10 +36,10 @@ final class CoffeeMachine
     {
         try {
             $this->setState($this->state->selectDrink($drink));
-            Logger::logInfo("selectDrink", $drink->name);
+            Logger::logInfo(" CoffeeMachine - selectDrink", $drink->name);
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible de sélectionner la boisson.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Une erreur est survenue. Impossible de sélectionner la boisson.");
         }
     }
 
@@ -49,13 +49,13 @@ final class CoffeeMachine
     public function selectSugar(int $sugarLevel): void
     {
         try {
-            Logger::logInfo("selectSugar", $sugarLevel);
+            Logger::logInfo("CoffeeMachine - selectSugar", $sugarLevel);
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible de sélectionner le sucre.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Une erreur est survenue. Impossible de sélectionner le sucre.");
         } catch (\InvalidArgumentException $e) {
-            Logger::logError($e->getMessage());
-            echo "Veuillez choisir un niveau de sucre entre 0 et 4.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Veuillez choisir un niveau de sucre entre 0 et 4.");
         }
     }
 
@@ -65,13 +65,13 @@ final class CoffeeMachine
     public function selectMilk(int $milkLevel): void
     {
         try {
-            Logger::logInfo("selectMilk", $milkLevel);
+            Logger::logInfo("CoffeeMachine - selectMilk", $milkLevel);
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Veuillez choisir un niveau de lait entre 0 et 4.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Veuillez choisir un niveau de lait entre 0 et 4.");
         } catch (\InvalidArgumentException $e) {
-            Logger::logError($e->getMessage());
-            echo "Veuillez choisir un niveau de lait entre 0 et 4.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Veuillez choisir un niveau de lait entre 0 et 4.");
         }
     }
 
@@ -82,10 +82,10 @@ final class CoffeeMachine
     {
         try {
             $this->setState($this->state->confirmDrink());
-            Logger::logInfo("confirmDrink");
+            Logger::logInfo("CoffeeMachine - confirmDrink");
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible de servir la boisson.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Une erreur est survenue. Impossible de servir la boisson.");
         }
     }
 
@@ -96,13 +96,13 @@ final class CoffeeMachine
     {
         try {
             $this->setState($this->state->insertCoin($coins));
-            Logger::logInfo("insertCoin", $coins);
+            Logger::logInfo("CoffeeMachine - insertCoin", $coins);
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible d'insérer la pièce.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Une erreur est survenue. Impossible d'insérer la pièce.");
         } catch (\InvalidArgumentException $e) {
-            Logger::logError($e->getMessage());
-            echo "Veuillez entrer un nombre de pièces entre 1 et 9.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Veuillez entrer un nombre de pièces entre 1 et 9.");
         }
     }
 
@@ -113,10 +113,10 @@ final class CoffeeMachine
     {
         try {
             $this->setState($this->state->finish());
-            Logger::logInfo("finish");
+            Logger::logInfo("CoffeeMachine - finish");
         } catch (IllegalStateTransitionException $e) {
-            Logger::logError($e->getMessage());
-            echo "Une erreur est survenue. Impossible de finaliser l'opération.\n";
+            Logger::logError("CoffeeMachine - error", $e->getMessage());
+            Logger::echoFeedback("Une erreur est survenue. Impossible de finaliser l'opération.");
         }
     }
 
@@ -125,7 +125,7 @@ final class CoffeeMachine
      */
     public function cancel(): DrinkChoiceState
     {
-        Logger::logInfo("cancel");
+        Logger::logInfo("CoffeeMachine - cancel");
         return $this->state->cancel();
         // IllegalStateTransitionException is not possible here
         // because cancel() is implemented in every State as CancellableTrait

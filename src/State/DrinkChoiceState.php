@@ -8,6 +8,7 @@ use App\Drink\Chocolate;
 use App\Enum\DrinkEnum;
 use App\State\AbstractCoffeeMachineState;
 use App\State\OptionsChoiceState;
+use App\Utility\Logger;
 
 final class DrinkChoiceState extends AbstractCoffeeMachineState
 {
@@ -20,7 +21,7 @@ final class DrinkChoiceState extends AbstractCoffeeMachineState
             DrinkEnum::CHOCOLATE => new Chocolate(),
         };
 
-        echo "Boisson sélectionnée: {$drink->label()} ({$drink->price()} pièces)\n";
+        Logger::echoFeedback("Boisson sélectionnée: {$drink->label()}");
 
         // Transition to OptionsChoice State
         return new OptionsChoiceState($drinkObject);

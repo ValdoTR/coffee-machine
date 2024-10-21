@@ -6,13 +6,8 @@ use App\Enum\DrinkEnum;
 
 abstract class Drink
 {
-    protected DrinkEnum $name;
-    protected int $price;
-
-    public function __construct(DrinkEnum $name, int $price)
+    public function __construct(protected DrinkEnum $name, protected int $price)
     {
-        $this->name = $name;
-        $this->price = $price;
     }
 
     public function getName(): DrinkEnum
