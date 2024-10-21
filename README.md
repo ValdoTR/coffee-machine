@@ -20,6 +20,64 @@ The project is structured around the following key components:
 - **Decorator Pattern**: The `DrinkDecorator` class and its subclasses (`SugarDecorator`, `MilkDecorator`) allow for dynamic customization of drinks.
 - **State Management**: The entry point `CoffeeMachine` class manages the current state and facilitates transitions between states.
 
+## Installation
+
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate to the directory: `cd coffee-machine`
+3. Install dependencies: `composer install`
+
+## Usage
+
+### With user interactions
+
+Run this command to interact with the coffee machine made in ASCII-art right into your terminal!
+
+It's a *step-by-step* manipulation, not *one-shot*.
+
+```shell
+php cli.php
+```
+
+![cli preview](docs/cli.png)
+
+### Without user interaction
+
+Run this command to get an instant feedback of the machine.
+
+It's a one-shot manipulation, not step-by-step.
+
+> You may change the given parameters in the script file directly.
+
+```shell
+php cli-no-interaction.php
+```
+
+## Unit testing
+
+The project includes unit tests for each state, ensuring that all main functionalities work as expected.
+
+Run the tests with:
+
+```shell
+vendor/bin/phpunit tests --colors
+```
+
+## Code analysis
+
+You can run a static analysis of the code base by running PHPStan:
+
+```shell
+vendor/bin/phpstan analyse src tests
+```
+
+## Code linting
+
+You can lint the source code by running PHP-CS-Fixer:
+
+```shell
+vendor/bin/php-cs-fixer fix src
+```
+
 ## State diagram
 
 Here is an UDM representing the State flow of the machine:
@@ -89,62 +147,4 @@ classDiagram
     DrinkChoiceState --> DrinkChoiceState : cancel()
     OptionsChoiceState --> DrinkChoiceState : cancel()
     PaymentState --> DrinkChoiceState : cancel()
-```
-
-## Installation
-
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the directory: `cd coffee-machine`
-3. Install dependencies: `composer install`
-
-## Usage
-
-### With user interactions
-
-Run this command to interact with the coffee machine made in ASCII-art right into your terminal!
-
-It's a *step-by-step* manipulation, not *one-shot*.
-
-```shell
-php cli.php
-```
-
-![cli preview](docs/cli.png)
-
-### Without user interaction
-
-Run this command to get an instant feedback of the machine.
-
-It's a one-shot manipulation, not step-by-step.
-
-> You may change the given parameters in the script file directly.
-
-```shell
-php cli-no-interaction.php
-```
-
-## Unit testing
-
-The project includes unit tests for each state, ensuring that all main functionalities work as expected.
-
-Run the tests with:
-
-```shell
-vendor/bin/phpunit tests --colors
-```
-
-## Code analysis
-
-You can run a static analysis of the code base by running PHPStan:
-
-```shell
-vendor/bin/phpstan analyse src tests
-```
-
-## Code linting
-
-You can lint the source code by running PHP-CS-Fixer:
-
-```shell
-vendor/bin/php-cs-fixer fix src
 ```
