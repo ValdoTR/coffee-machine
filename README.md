@@ -9,8 +9,8 @@ This project implements a coffee machine simulation using Object-Oriented Progra
 #### User features
 
 - **Drink Selection**: Users can choose from different types of drinks (e.g., Coffee, Tea, Chocolate).
-- **Customization Options**: Users insert coins to pay for their drink, and the machine validates the amount against the drink’s price. Users can also request their change back at any time before confirming the drink, or the machine automatically gives back the remaining credit after the drink is dispensed.
-- **Payment Handling**: The system manages user credit and processes payments.
+- **Customization Options**: Users can optionally select sugar and milk levels for their drinks.
+- **Payment Handling**: Users insert coins to pay for their drink, and the machine validates the amount against the drink’s price. Users can also request their change back at any time before confirming the drink, or the machine automatically gives back the remaining credit after the drink is dispensed.
 
 #### Technical features
 
