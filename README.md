@@ -1,10 +1,10 @@
-# PHP Coffee Machine
+# ☕ PHP Coffee Machine
 
-## Description
+## 📜 Description
 
 This project implements a coffee machine simulation using Object-Oriented Programming principles and design patterns. It allows users to select drinks, customize them with sugar and milk, and handle payments.
 
-### Features
+### 🌟 Features
 
 #### User features
 
@@ -18,7 +18,7 @@ This project implements a coffee machine simulation using Object-Oriented Progra
 - **Logging**: Detailed logs for debugging and user feedback.
 - **Error handling**: Invalid state transitions (e.g., select sugar level before choosing a drink) are handled by throwing a custom `IllegalStateTransitionException`. Incorrect input (e.g., entering too many sugars) will trigger an `InvalidArgumentException`.
 
-### Architecture
+### 🛠️ Architecture
 
 The project is structured around the following key components:
 
@@ -26,13 +26,13 @@ The project is structured around the following key components:
 - **Decorator Pattern**: The `DrinkDecorator` class and its subclasses (`SugarDecorator`, `MilkDecorator`) allow for dynamic customization of drinks.
 - **State Management**: The entry point `CoffeeMachine` class manages the current state and facilitates transitions between states.
 
-## Installation
+## 🚀 Installation
 
-1. Clone the repository
+1. Clone the repository: `git clone git@github.com:ValdoTR/coffee-machine.git`
 2. Navigate to the directory: `cd coffee-machine`
 3. Install dependencies: `composer install`
 
-## Usage
+## 🎮 Usage
 
 ### With user interactions
 
@@ -58,7 +58,7 @@ It's a one-shot manipulation, not step-by-step.
 php cli-no-interaction.php
 ```
 
-## Unit testing
+## ✅ Unit testing
 
 The project includes unit tests for each state, ensuring that all main functionalities work as expected.
 
@@ -68,7 +68,7 @@ Run the tests with:
 vendor/bin/phpunit tests --colors
 ```
 
-## Code analysis
+## 🔍 Code analysis
 
 You can run a static analysis of the code base by running PHPStan:
 
@@ -76,7 +76,7 @@ You can run a static analysis of the code base by running PHPStan:
 vendor/bin/phpstan analyse src tests
 ```
 
-## Code linting
+## 💅 Code linting
 
 You can lint the source code by running PHP-CS-Fixer:
 
@@ -84,7 +84,7 @@ You can lint the source code by running PHP-CS-Fixer:
 vendor/bin/php-cs-fixer fix src
 ```
 
-## State diagram
+## 🧠 State diagram
 
 Here is an UDM representing the State flow of the machine:
 
