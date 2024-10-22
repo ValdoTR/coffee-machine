@@ -7,10 +7,12 @@ This project implements a coffee machine simulation using Object-Oriented Progra
 ### Features
 
 - **Drink Selection**: Users can choose from different types of drinks (e.g., Coffee, Tea, Chocolate).
-- **Customization Options**: Users can select sugar and milk levels for their drinks.
+- **Customization Options**: Users insert coins to pay for their drink, and the machine validates the amount against the drink’s price. Users can also request their change back at any time before confirming the drink, or the machine automatically gives back the remaining credit after the drink is dispensed.
 - **Payment Handling**: The system manages user credit and processes payments.
+
 - **State Management**: The coffee machine utilizes the State design pattern to manage transitions between different states (e.g., DrinkChoiceState, OptionsChoiceState, PaymentState). Indeed, this machine is a type of [FSM](https://en.wikipedia.org/wiki/Finite-state_machine).
 - **Logging**: Detailed logs for debugging and user feedback.
+- **Error handling**: Invalid state transitions (e.g., select sugar level before choosing a drink) are handled by throwing a custom `IllegalStateTransitionException`. Incorrect input (e.g., entering too many sugars) will trigger an `InvalidArgumentException`.
 
 ### Architecture
 
