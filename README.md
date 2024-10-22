@@ -1,4 +1,4 @@
-# Causeway: Machine à Café
+# PHP Coffee Machine
 
 ## Description
 
